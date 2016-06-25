@@ -2,9 +2,28 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include "twoVariableLinearRegression.h"
 
 using namespace std;
 
+int main() {
+    vector<double> x = {1,2,3,4,5};
+    vector<double> y = {1,2,3,4,5};
+    vector<double> label = x*5 + y * 6.4;
+
+    auto ds = loadDataSet(".\\data\\ex1data1.txt");
+
+    while (true){
+        double a,b;
+        cout << "Choose a: ";
+        cin >> a;
+        cout << endl << "Choose b: ";
+        cin >> b;
+        cout << endl << "Cost funtion: " << costFunction(a,b,x,y,label) << endl;
+    }
+
+    return 0;
+}
 // Intro to DataScience, 2 variable linear regression by Tomer Schlesinger
 // Gvaaim Lesson with Yooda Or at Hakfar Hayarok
 
@@ -64,10 +83,11 @@ double costFunction(double a, double b, vector<double> x, vector<double> y, vect
     return (delta * delta)/(2*x.size());
 }
 
-vector<vector<double>> loadDataSet(string path, string seperator = ","){
+vector<vector<double>> loadDataSet(string path, string seperator){
     vector<vector<double>> ds;
     ifstream datasetFile (path);
     string line;
+
     if (!datasetFile.is_open()) throw runtime_error("Unable to load dataset");
 
     while ( getline (datasetFile,line) )
@@ -91,21 +111,3 @@ vector<vector<double>> loadDataSet(string path, string seperator = ","){
 }
 
 
-int main() {
-    vector<double> x = {1,2,3,4,5};
-    vector<double> y = {1,2,3,4,5};
-    vector<double> label = x*5 + y * 6.4;
-
-    auto ds = loadDataSet(".\data\ex1data1.txt");
-
-    while (true){
-        double a,b;
-        cout << "Choose a: ";
-        cin >> a;
-        cout << endl << "Choose b: ";
-        cin >> b;
-        cout << endl << "Cost funtion: " << costFunction(a,b,x,y,label) << endl;
-    }
-
-    return 0;
-}
